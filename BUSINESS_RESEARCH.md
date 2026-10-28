@@ -15,7 +15,7 @@ Last updated: 28 October 2026
 | Instagram | https://www.instagram.com/shivshakti_makeupsalon_/ | Verified, public profile viewed 28 Oct 2026 |
 | Instagram followers | 31.5K | Verified 28 Oct 2026 (shown on site with that date) |
 | Google rating / reviews | — | **Not verifiable** — Google Maps pages render only with JavaScript; site links to the listing instead |
-| Logo / brand colours | Black circular badge, gold script "S" monogram, gold rim lettering | Seen in the profile avatar inside Instagram's public post embeds (28 Oct 2026). **Logo file still needed from owner** — not copied |
+| Logo / brand colours | Black badge, gold "SS" monogram with a woman's profile, scissors and brush; rim text "SHIV SHAKTI · BY VAISHALI DIXIT" | **In use on the site** (header, footer, favicon) as `logo-100.jpg`, taken from the Instagram profile picture at the client's request. Only 100×100 px is publicly available — **ask the owner for the original file** |
 | Opening hours | — | Not on the site yet; ask owner |
 | YouTube | — | Not verified; left `null` in `config.js`, so the section stays hidden |
 
@@ -39,7 +39,7 @@ Viewed on 28 Oct 2026 without logging in. Only text, alt text and dates were rea
 | Academy | Makeup Course, Beauty & Salon Skills, PMU (Permanent Makeup) Training; batch-based | Bio + "9th batch" highlight |
 | Not claimed | Engagement/reception, hairstyling, photoshoot makeup | Not seen on the profile. The site only invites visitors to *ask* about them |
 
-**Design decision:** the official avatar is a black badge with a gold monogram, so the site uses **brand black and gold** as its identity colours, on an ivory base for readability. Dark bands (Instagram section, footer) carry the black-and-gold look. All colours are CSS variables in `:root`. The "SS" monogram in the header and the favicon is a stand-in drawn in the brand colours, **not** the real logo. Replace it with the owner's logo file.
+**Design decision:** the official avatar is a black badge with a gold monogram, so the site uses **brand black and gold** as its identity colours, on an ivory base for readability. Dark bands (Instagram section, footer) carry the black-and-gold look. All colours are CSS variables in `:root`. The header, footer and favicon use the official logo from the Instagram profile picture. It is low resolution (100px), so replace it with the owner's original file.
 
 **Address evidence:** one of the embedded posts (`/p/DXwO9aiE9QV/`) has a caption mentioning "Indirapuram Gyankhand-2". This supports the Instagram account operating in Indirapuram (see §3, item 1).
 
@@ -48,7 +48,7 @@ Viewed on 28 Oct 2026 without logging in. Only text, alt text and dates were rea
 1. **Address conflict (most important).** The brief and the Google listing give *B-117, Prem Vihar, Khora Colony, Sector 62A, Noida*. The Instagram bio's map link points to *First Floor, Shiv Shakti Makeup Salon and Academy, CS-5, Gyan Khand II, Indirapuram, Ghaziabad 201014*. Is that a second branch, a new location, or a different business? The site currently shows only the Noida address.
 2. **Business name.** Use "Shiv Shakti Makeup Studio & Training Center" (Google) or "Shivshakti Makeup Salon & Academy" (Instagram)?
 3. Does +91 88021 29089 take WhatsApp messages?
-4. **Logo files** (SVG or high-resolution PNG). The site uses black and gold to match the Instagram avatar. Please confirm the exact colours.
+4. **High-resolution logo file** (SVG, or a PNG of at least 512px). The site currently uses the 100px Instagram profile picture. Please confirm the exact colours, and that "by Vaishali Dixit" is the current logo wording.
 5. "Certified by Meera Sakrani" — who holds the certification, and may the site display it? It is not shown yet.
 6. Course details: names, duration, certificate, fees (only if you want them shown), next batch date.
 7. Which Instagram posts should appear on the website? Three recent posts are pre-selected in `config.js` (`instagramPosts`).
