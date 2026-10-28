@@ -55,7 +55,7 @@
   });
 
   // Optional social links: only shown once a verified URL is configured.
-  ["youtube", "instagram"].forEach(function (key) {
+  ["youtube"].forEach(function (key) {
     document.querySelectorAll('[data-social="' + key + '"]').forEach(function (el) {
       if (!cfg[key]) return;
       el.hidden = false;
@@ -64,6 +64,69 @@
       });
     });
   });
+
+  // ---------- Instagram ----------
+  document.querySelectorAll("[data-instagram]").forEach(function (el) {
+    el.href = cfg.instagram;
+    el.target = "_blank";
+    el.rel = "noopener";
+  });
+  document.querySelectorAll("[data-ig-handle]").forEach(function (el) {
+    el.textContent = cfg.instagramHandle;
+  });
+  document.querySelectorAll("[data-ig-followers-wrap]").forEach(function (el) {
+    el.hidden = !cfg.instagramFollowers;
+  });
+  document.querySelectorAll("[data-ig-followers]").forEach(function (el) {
+    el.textContent = cfg.instagramFollowers;
+  });
+  document.querySelectorAll("[data-ig-asof]").forEach(function (el) {
+    el.textContent = cfg.instagramFollowersAsOf ? "(" + cfg.instagramFollowersAsOf + ")" : "";
+  });
+
+  // Selected posts as official embeds. Each starts as a plain link card, and
+  // Instagram's embed.js is only loaded when the section nears the viewport.
+  var igGrid = document.querySelector("[data-ig-posts]");
+  var igPosts = cfg.instagramPosts || [];
+  if (igGrid && igPosts.length) {
+    igPosts.forEach(function (url) {
+      var quote = document.createElement("blockquote");
+      quote.className = "instagram-media";
+      quote.setAttribute("data-instgrm-permalink", url + "?utm_source=ig_embed");
+      quote.setAttribute("data-instgrm-version", "14");
+      var link = document.createElement("a");
+      link.href = url;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.textContent = "View this post on Instagram";
+      quote.appendChild(link);
+      igGrid.appendChild(quote);
+    });
+
+    var loadEmbeds = function () {
+      if (window.instgrm) return window.instgrm.Embeds.process();
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.instagram.com/embed.js";
+      document.body.appendChild(s);
+    };
+    if ("IntersectionObserver" in window) {
+      var igIo = new IntersectionObserver(
+        function (entries) {
+          if (entries.some(function (e) { return e.isIntersecting; })) {
+            igIo.disconnect();
+            loadEmbeds();
+          }
+        },
+        { rootMargin: "400px 0px" }
+      );
+      igIo.observe(igGrid);
+    } else {
+      loadEmbeds();
+    }
+  } else if (igGrid) {
+    igGrid.hidden = true;
+  }
 
   // ---------- Structured data (LocalBusiness) ----------
   var ld = {
@@ -82,6 +145,12 @@
     geo: { "@type": "GeoCoordinates", latitude: cfg.geo.lat, longitude: cfg.geo.lng },
     hasMap: cfg.mapsUrl,
   };
+  ld.makesOffer = [
+    "Bridal Makeup", "Party / Occasion Makeup", "Festive / Karwa Chauth Makeup", "Mehndi",
+    "Makeup Course", "Beauty & Salon Skills course", "PMU (Permanent Makeup) Training",
+  ].map(function (name) {
+    return { "@type": "Offer", itemOffered: { "@type": "Service", name: name } };
+  });
   var sameAs = [cfg.youtube, cfg.instagram].filter(Boolean);
   if (sameAs.length) ld.sameAs = sameAs;
   var script = document.createElement("script");
@@ -173,6 +242,71 @@
     if (e.key === "ArrowLeft") show(current - 1);
     if (e.key === "ArrowRight") show(current + 1);
   });
+
+  // ---------- WhatsApp enquiry form ----------
+  // No backend: the form composes a message and opens WhatsApp. The visitor
+  // reviews it and presses Send themselves.
+  var form = document.getElementById("enquiry-form");
+  if (form) {
+    form.hidden = false;
+
+    var setError = function (field, show) {
+      var err = document.getElementById(field.id + "-error");
+      field.setAttribute("aria-invalid", String(show));
+      if (err) {
+        err.hidden = !show;
+        if (show) field.setAttribute("aria-describedby", err.id);
+        else field.removeAttribute("aria-describedby");
+      }
+      return show;
+    };
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = form.elements.name;
+      var interest = form.elements.interest;
+      var bad = [
+        setError(name, !name.value.trim()) && name,
+        setError(interest, !interest.value) && interest,
+      ].filter(Boolean);
+      if (bad.length) {
+        bad[0].focus();
+        return;
+      }
+
+      var lines = [
+        "Hello! I found " + cfg.name + " online.",
+        "",
+        "Name: " + name.value.trim(),
+        "Interested in: " + interest.value,
+      ];
+      var date = form.elements.date.value;
+      if (date) {
+        var d = new Date(date + "T00:00:00");
+        lines.push("Preferred date: " + d.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" }));
+      }
+      var note = form.elements.message.value.trim();
+      if (note) lines.push("Message: " + note);
+      lines.push("", "Please share the details.");
+
+      // A real link click (rather than window.open) keeps this a user gesture
+      // and opens the WhatsApp app directly on mobile.
+      var link = document.createElement("a");
+      link.href = waLink(lines.join("\n"));
+      link.target = "_blank";
+      link.rel = "noopener";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    });
+
+    ["name", "interest"].forEach(function (key) {
+      var field = form.elements[key];
+      field.addEventListener(key === "interest" ? "change" : "input", function () {
+        if (field.getAttribute("aria-invalid") === "true") setError(field, !field.value.trim());
+      });
+    });
+  }
 
   // ---------- Footer year ----------
   var year = document.getElementById("year");
