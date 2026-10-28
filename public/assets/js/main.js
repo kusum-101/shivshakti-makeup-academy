@@ -164,6 +164,7 @@
   var nav = document.getElementById("site-nav");
 
   function setNav(open) {
+    if (open) nav.style.setProperty("--nav-top", Math.round(header.getBoundingClientRect().bottom) + "px");
     toggle.setAttribute("aria-expanded", String(open));
     nav.classList.toggle("is-open", open);
     document.body.classList.toggle("nav-open", open);
