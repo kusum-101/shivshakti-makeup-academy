@@ -1,0 +1,14 @@
+{
+  "name": "shivshakti-makeup-academy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo website for Shiv Shakti Makeup Studio & Training Center, Noida. Static site deployed from /public.",
+  "scripts": {
+    "test": "node scripts/check-site.mjs",
+    "build": "node scripts/check-site.mjs",
+    "start": "npx --yes serve@14.2.4 public -l 3000"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
