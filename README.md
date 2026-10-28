@@ -28,6 +28,8 @@ npm test           # config, asset, link, SEO and WhatsApp checks
 
 ## Common edits
 
+- **After changing CSS or JS:** raise the `?v=` number on the `styles.css`, `config.js` and `main.js` links in the HTML pages (`npm test` checks the links have one). Otherwise returning visitors may still see the old styles.
+
 - **Phone / WhatsApp / address / messages:** edit `public/assets/js/config.js`. Every phone link, WhatsApp button, map link and the structured data are generated from it.
 - **Instagram:** `instagram`, `instagramHandle`, `instagramFollowers` and `instagramFollowersAsOf` in `config.js`. Update the follower figure and its date together, or set it to `null` to hide it.
 - **Featured Instagram posts:** list post or reel URLs in `instagramPosts`. They are shown with Instagram's official embed, loaded only when the visitor scrolls near the section. This is a hand-picked list, not a live feed.

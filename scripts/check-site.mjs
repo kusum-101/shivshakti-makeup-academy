@@ -58,6 +58,11 @@ for (const page of pages) {
     check(existsSync(join(root, file)), `${page}: missing local file ${ref}`);
   }
 
+  // CSS/JS keep their names between deploys, so each link carries a ?v= cache-buster
+  for (const [, ref] of html.matchAll(/\s(?:src|href)="(\/assets\/(?:css|js)\/[^"]+)"/g)) {
+    check(/\?v=\w+$/.test(ref), `${page}: ${ref} needs a ?v= version so browsers don't serve a stale copy`);
+  }
+
   // In-page anchors
   for (const [, target] of html.matchAll(/href="#([^"]*)"/g)) {
     check(target && ids.has(target), `${page}: anchor #${target} has no matching id`);

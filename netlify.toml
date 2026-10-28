@@ -10,7 +10,21 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
 
+# CSS and JS keep their file names between deploys, so browsers must re-check
+# them on every visit (Netlify answers with a fast 304 when unchanged).
+# The ?v= number on their links in the HTML also forces a fresh copy after a change.
 [[headers]]
-  for = "/assets/*"
+  for = "/assets/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Images: cache for 7 days. Use a new file name when replacing an image.
+[[headers]]
+  for = "/assets/img/*"
   [headers.values]
     Cache-Control = "public, max-age=604800"
