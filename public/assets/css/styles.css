@@ -262,7 +262,9 @@ address { font-style: normal; }
 .hero-facts span { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.03em; }
 .hero-facts a:hover strong { color: var(--gold-text); }
 
-@media (min-width: 960px) {
+/* Side-by-side hero for landscape screens from 960px. Portrait tablets
+   (e.g. iPad Pro at 1024x1366) keep the stacked photo-over-card layout. */
+@media (min-width: 960px) and (orientation: landscape) {
   /* The hero fills exactly one screen below the header, and its type and
      spacing scale with screen height so the whole block fits on short laptops. */
   .hero {
@@ -294,6 +296,11 @@ address { font-style: normal; }
   .hero .lead { margin-top: clamp(12px, 2.4svh, 22px); font-size: clamp(1rem, 2.2svh, 1.1rem); }
   .hero .btn-row { margin-top: clamp(16px, 3.4svh, 32px); }
   .hero-facts { margin-top: clamp(16px, 3.8svh, 36px); padding-top: clamp(12px, 2.4svh, 22px); }
+}
+/* Landscape tablets and small laptops: give the copy more room so the buttons sit on one row. */
+@media (min-width: 960px) and (max-width: 1199px) and (orientation: landscape) {
+  .hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+  .hero-copy { padding-right: 32px; }
 }
 
 /* ---------- Sections ---------- */
@@ -433,6 +440,7 @@ address { font-style: normal; }
 .academy-intro .section-head { margin-bottom: 0; }
 .academy-feature { margin: 0; border-radius: 240px 240px var(--radius) var(--radius); overflow: hidden; aspect-ratio: 4 / 4.4; box-shadow: var(--shadow); }
 .academy-feature img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 959px) { .academy-feature { width: 100%; max-width: 460px; justify-self: center; } }
 @media (min-width: 960px) {
   .academy-intro { grid-template-columns: 0.85fr 1fr; gap: 80px; }
   .academy-feature { max-width: 460px; }
