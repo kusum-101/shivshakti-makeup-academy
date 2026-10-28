@@ -85,6 +85,7 @@ address { font-style: normal; }
 
 .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 .center { text-align: center; }
+.nowrap { white-space: nowrap; }
 
 .icon { width: 1.15em; height: 1.15em; flex: none; }
 
@@ -249,20 +250,37 @@ address { font-style: normal; }
 .hero-facts a:hover strong { color: var(--gold-text); }
 
 @media (min-width: 960px) {
+  /* The hero fills exactly one screen below the header, and its type and
+     spacing scale with screen height so the whole block fits on short laptops. */
   .hero {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     min-height: calc(100svh - var(--header-h) - 34px);
     max-height: 900px;
   }
   .hero-media { order: 2; height: auto; }
+  /* Fill the column without the photo's tall 4:5 shape stretching the hero. */
+  .hero-media img { position: absolute; inset: 0; }
+  /* Long, eased fade from the black copy column into the photo. */
   .hero-media::after {
-    inset: 0 auto 0 0; width: 22%; height: auto;
-    background: linear-gradient(to right, var(--bg), rgba(11, 9, 8, 0));
+    inset: 0 auto 0 0; width: 42%; height: auto;
+    background: linear-gradient(to right,
+      var(--bg) 0%,
+      rgba(11, 9, 8, 0.86) 12%,
+      rgba(11, 9, 8, 0.62) 28%,
+      rgba(11, 9, 8, 0.36) 48%,
+      rgba(11, 9, 8, 0.14) 72%,
+      rgba(11, 9, 8, 0) 100%);
   }
   .hero-copy {
     align-self: center; margin: 0; box-shadow: none; background: transparent; border-radius: 0;
-    padding: 64px 48px 64px max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+    padding: clamp(20px, 5svh, 64px) 48px clamp(20px, 5svh, 64px) max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
   }
+  .hero .eyebrow { margin-bottom: clamp(8px, 1.8svh, 16px); }
+  .hero-business { margin-bottom: clamp(6px, 1.4svh, 14px); }
+  .hero-headline { font-size: clamp(2.4rem, min(5.2vw, 10svh), 5.4rem); }
+  .hero .lead { margin-top: clamp(12px, 2.4svh, 22px); font-size: clamp(1rem, 2.2svh, 1.1rem); }
+  .hero .btn-row { margin-top: clamp(16px, 3.4svh, 32px); }
+  .hero-facts { margin-top: clamp(16px, 3.8svh, 36px); padding-top: clamp(12px, 2.4svh, 22px); }
 }
 
 /* ---------- Sections ---------- */
