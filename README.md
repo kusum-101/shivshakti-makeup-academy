@@ -10,9 +10,10 @@ See [`BUSINESS_RESEARCH.md`](BUSINESS_RESEARCH.md) for verified business details
 public/index.html          page markup, SEO meta
 public/credits.html        Unsplash image credits
 public/404.html            not-found page
-public/assets/js/config.js business details: phone, WhatsApp, address, map, messages
-public/assets/js/main.js   builds links and structured data from config, menu, scroll effects
-public/assets/css/styles.css all styles (brand colours are CSS variables in :root)
+public/assets/js/config.js business details: phone, WhatsApp, address, map, Instagram, messages
+public/assets/js/main.js   builds links, Instagram embeds and structured data from config;
+                           menu, scroll effects, lightbox, WhatsApp enquiry form
+public/assets/css/styles.css all styles (black & gold brand colours are CSS variables in :root)
 public/assets/img/         optimised WebP images, 600px and 1200px (temporary stock)
 public/favicon.svg         placeholder monogram
 scripts/check-site.mjs     pre-deploy checks (no dependencies)
@@ -29,10 +30,13 @@ npm test           # config, asset, link, SEO and WhatsApp checks
 ## Common edits
 
 - **Phone / WhatsApp / address / messages:** edit `public/assets/js/config.js`. Every phone link, WhatsApp button, map link and the structured data are generated from it.
-- **YouTube / Instagram:** set `youtube` / `instagram` in `config.js` to a verified URL. The videos section stays hidden while they are `null`.
-- **Services and courses:** edit the cards in `public/index.html`, then remove the two "to be confirmed" `pending-note` lines once the studio approves them.
+- **Instagram:** `instagram`, `instagramHandle`, `instagramFollowers` and `instagramFollowersAsOf` in `config.js`. Update the follower figure and its date together, or set it to `null` to hide it.
+- **Featured Instagram posts:** list post or reel URLs in `instagramPosts`. They are shown with Instagram's official embed, loaded only when the visitor scrolls near the section. This is a hand-picked list, not a live feed.
+- **YouTube:** set `youtube` in `config.js` to a verified URL. The videos section stays hidden while it is `null`.
+- **Enquiry form:** has no backend. It builds a WhatsApp message from the fields and opens WhatsApp, and the visitor presses Send. To collect submissions by email instead, add Netlify Forms, and update the form's help text to match.
+- **Services and courses:** edit the cards in `public/index.html` (and the matching options in the enquiry form `<select>` and `makesOffer` in `main.js`). Only services and courses seen on the official Instagram are listed. See `BUSINESS_RESEARCH.md`.
 - **Photos:** replace files in `public/assets/img/` (same names, both sizes), then update `credits.html` and remove the demo notice bar at the top of `index.html`.
-- **Logo:** replace the `.brand` block in `index.html` and `favicon.svg`.
+- **Logo:** the "SS" monogram is a stand-in. Replace the `.brand-mark` in `index.html` and `favicon.svg` with the owner's logo file.
 
 ## Deploy to Netlify
 

@@ -28,8 +28,12 @@ for (const [key, msg] of Object.entries(cfg.messages)) {
   check(parsed.searchParams.get("text") === msg, `WhatsApp message "${key}" does not round-trip through URL encoding`);
   check(!/\s/.test(url), `WhatsApp URL for "${key}" contains unencoded whitespace`);
 }
-for (const key of ["youtube", "instagram"]) {
-  check(cfg[key] === null || /^https:\/\//.test(cfg[key]), `${key} must be null or an https URL`);
+check(cfg.youtube === null || /^https:\/\//.test(cfg.youtube), "youtube must be null or an https URL");
+check(/^https:\/\/www\.instagram\.com\/[\w.]+\/$/.test(cfg.instagram), "instagram must be a clean https://www.instagram.com/<handle>/ URL");
+check(cfg.instagramHandle === "@" + cfg.instagram.split("/")[3], "instagramHandle should match the instagram URL");
+check(cfg.instagramFollowers === null || !!cfg.instagramFollowersAsOf, "instagramFollowers needs an instagramFollowersAsOf date");
+for (const url of cfg.instagramPosts || []) {
+  check(/^https:\/\/www\.instagram\.com\/(p|reel)\/[\w-]+\/$/.test(url), `instagramPosts entry is not a post/reel URL: ${url}`);
 }
 
 // ---------- Pages ----------
@@ -89,6 +93,26 @@ for (const page of pages) {
 // Floating WhatsApp button
 const index = readFileSync(join(root, "index.html"), "utf8");
 check(/class="wa-float"[^>]*data-wa="general"[^>]*aria-label="Chat on WhatsApp"/.test(index), "floating WhatsApp button missing or mislabeled");
+
+// Main navigation covers the required sections
+for (const id of ["top", "services", "gallery", "academy", "reviews", "contact"]) {
+  check(new RegExp(`<nav id="site-nav"[\\s\\S]*href="#${id}"[\\s\\S]*</nav>`).test(index), `main nav is missing #${id}`);
+}
+
+// Instagram section and links
+check(/id="instagram"/.test(index) && /data-ig-posts/.test(index), "Instagram section missing");
+check(/data-instagram[^>]*>[\s\S]{0,120}Follow on Instagram/.test(index), "Follow on Instagram button missing");
+for (const [tag] of index.matchAll(/<a\b[^>]*data-instagram[^>]*>/g)) {
+  check(tag.includes(`href="${cfg.instagram}"`), `Instagram link fallback href should be ${cfg.instagram}: ${tag}`);
+}
+
+// Enquiry form: labelled fields, and no claim of a backend submission
+const form = (index.match(/<form id="enquiry-form"[\s\S]*?<\/form>/) || [""])[0];
+check(form, "enquiry form missing");
+check(!/\saction=/.test(form), "enquiry form must not post anywhere: it opens WhatsApp instead");
+for (const [, id] of form.matchAll(/<(?:input|select|textarea)\b[^>]*id="([^"]+)"/g)) {
+  check(form.includes(`for="${id}"`), `form field #${id} has no <label>`);
+}
 
 if (errors.length) {
   console.error(`\n✗ ${errors.length} of ${checks} checks failed:\n`);
