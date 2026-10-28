@@ -39,7 +39,7 @@ Viewed on 28 Oct 2026 without logging in. Only text, alt text and dates were rea
 | Academy | Makeup Course, Beauty & Salon Skills, PMU (Permanent Makeup) Training; batch-based | Bio + "9th batch" highlight |
 | Not claimed | Engagement/reception, hairstyling, photoshoot makeup | Not seen on the profile. The site only invites visitors to *ask* about them |
 
-**Design decision:** the official avatar is a black badge with a gold monogram, so the site uses **brand black and gold** as its identity colours, on an ivory base for readability. Dark bands (Instagram section, footer) carry the black-and-gold look. All colours are CSS variables in `:root`. The header, footer and favicon use the official logo from the Instagram profile picture. It is low resolution (100px), so replace it with the owner's original file.
+**Design decision:** the official avatar is a black badge with a gold monogram, so the site uses **brand black and gold** throughout: black backgrounds, gold accents and buttons, ivory text (dark theme chosen by the client, 28 Oct 2026). All colours are CSS variables in `:root`. The header, footer and favicon use the official logo from the Instagram profile picture. It is low resolution (100px), so replace it with the owner's original file.
 
 **Address evidence:** one of the embedded posts (`/p/DXwO9aiE9QV/`) has a caption mentioning "Indirapuram Gyankhand-2". This supports the Instagram account operating in Indirapuram (see §3, item 1).
 

@@ -1,27 +1,29 @@
 /* ==========================================================================
-   Shiv Shakti Makeup Studio & Training Center — black & gold on ivory
+   Shiv Shakti Makeup Studio & Training Center — black & gold
 
-   Brand colours follow the official Instagram logo (black badge with a gold
-   monogram, see BUSINESS_RESEARCH.md). Ivory keeps long sections readable.
+   Brand colours follow the official logo (black badge with a gold monogram,
+   see BUSINESS_RESEARCH.md): black backgrounds, gold accents, ivory text.
    Fine-tune the gold tokens once the owner supplies the logo file.
    ========================================================================== */
 
 :root {
-  --bg: #faf7f2;            /* ivory */
-  --bg-alt: #f3ede3;        /* warm sand */
-  --surface: #ffffff;
-  --line: rgba(40, 30, 20, 0.12);
-  --line-strong: rgba(40, 30, 20, 0.24);
+  color-scheme: dark;
+  --bg: #0b0908;            /* brand black */
+  --bg-alt: #13100d;        /* raised black for alternating sections */
+  --surface: #1a1612;       /* cards */
+  --line: rgba(216, 180, 110, 0.14);
+  --line-strong: rgba(216, 180, 110, 0.32);
 
-  --text: #1d1814;          /* near-black */
-  --muted: #665849;
-  --accent: #16120f;        /* brand black */
-  --accent-hover: #3a2e22;
-  --accent-soft: #f3e8d4;
-  --gold: #b8914f;          /* brand gold: decorative (lines, large numerals) */
-  --gold-text: #85612d;     /* gold for text, 4.5:1+ on ivory */
+  --text: #f5ecdf;          /* ivory */
+  --muted: #b9aa96;
+  --accent: #d8b46e;        /* brand gold: primary buttons, focus */
+  --accent-hover: #e8cb8f;
+  --on-accent: #14100c;     /* text on gold */
+  --accent-soft: rgba(216, 180, 110, 0.1);
+  --gold: #c9a35e;          /* decorative (lines, large numerals) */
+  --gold-text: #d8b46e;     /* gold for text, 4.5:1+ on black */
 
-  --deep: #13100d;          /* dark band (brand black) */
+  --deep: #050403;          /* deepest black: Instagram band, footer */
   --deep-text: #f7efe3;
   --deep-muted: #c9bba8;
   --deep-gold: #d8b46e;
@@ -31,8 +33,8 @@
 
   --radius: 18px;
   --radius-sm: 10px;
-  --shadow: 0 24px 60px -30px rgba(30, 22, 14, 0.35);
-  --shadow-sm: 0 10px 30px -18px rgba(30, 22, 14, 0.3);
+  --shadow: 0 28px 60px -30px rgba(0, 0, 0, 0.85);
+  --shadow-sm: 0 12px 30px -18px rgba(0, 0, 0, 0.8);
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --header-h: 76px;
   --gutter: clamp(16px, 4vw, 40px);
@@ -76,7 +78,7 @@ address { font-style: normal; }
 
 .skip-link {
   position: absolute; left: 16px; top: -60px; z-index: 100;
-  background: var(--accent); color: var(--deep-text); padding: 10px 16px; border-radius: var(--radius-sm);
+  background: var(--accent); color: var(--on-accent); padding: 10px 16px; border-radius: var(--radius-sm);
   font-weight: 500; text-decoration: none; transition: top 0.2s;
 }
 .skip-link:focus { top: 12px; }
@@ -107,7 +109,7 @@ address { font-style: normal; }
   font-size: 0.8rem;
   letter-spacing: 0.03em;
   color: var(--gold-text);
-  border: 1px dashed rgba(133, 97, 45, 0.5);
+  border: 1px dashed rgba(216, 180, 110, 0.45);
   border-radius: 999px;
   padding: 4px 14px;
 }
@@ -122,7 +124,7 @@ address { font-style: normal; }
   transition: background-color 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
 .btn:hover { transform: translateY(-2px); }
-.btn-primary { background: var(--accent); color: var(--deep-text); box-shadow: 0 12px 26px -14px rgba(22, 18, 15, 0.6); }
+.btn-primary { background: var(--accent); color: var(--on-accent); box-shadow: 0 12px 28px -14px rgba(216, 180, 110, 0.45); }
 .btn-primary:hover { background: var(--accent-hover); }
 .btn-outline { border-color: var(--line-strong); color: var(--text); background: transparent; }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
@@ -151,18 +153,18 @@ address { font-style: normal; }
 .site-header {
   position: sticky; top: 0; z-index: 50;
   height: var(--header-h);
-  background: rgba(250, 247, 242, 0.82);
+  background: rgba(11, 9, 8, 0.78);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid transparent;
   transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
-.site-header.is-scrolled { background: rgba(250, 247, 242, 0.96); border-bottom-color: var(--line); box-shadow: 0 6px 24px -20px rgba(30, 22, 14, 0.5); }
+.site-header.is-scrolled { background: rgba(11, 9, 8, 0.95); border-bottom-color: var(--line); box-shadow: 0 8px 24px -18px rgba(0, 0, 0, 0.9); }
 .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
 .brand-logo {
   width: 52px; height: 52px; flex: none; border-radius: 50%; background: var(--deep);
-  box-shadow: 0 0 0 1px rgba(184, 145, 79, 0.55), 0 6px 16px -8px rgba(30, 22, 14, 0.6);
+  box-shadow: 0 0 0 1px rgba(216, 180, 110, 0.55), 0 6px 18px -6px rgba(216, 180, 110, 0.25);
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
 .brand-name { font-family: var(--serif); font-size: 1.45rem; font-weight: 600; color: var(--text); }
@@ -220,7 +222,7 @@ address { font-style: normal; }
 .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
 .hero-media::after {
   content: ""; position: absolute; inset: auto 0 0 0; height: 30%;
-  background: linear-gradient(to top, var(--bg), rgba(250, 247, 242, 0));
+  background: linear-gradient(to top, var(--bg), rgba(11, 9, 8, 0));
 }
 .hero-copy {
   position: relative; z-index: 1;
@@ -255,7 +257,7 @@ address { font-style: normal; }
   .hero-media { order: 2; height: auto; }
   .hero-media::after {
     inset: 0 auto 0 0; width: 22%; height: auto;
-    background: linear-gradient(to right, var(--bg), rgba(250, 247, 242, 0));
+    background: linear-gradient(to right, var(--bg), rgba(11, 9, 8, 0));
   }
   .hero-copy {
     align-self: center; margin: 0; box-shadow: none; background: transparent; border-radius: 0;
@@ -352,6 +354,7 @@ address { font-style: normal; }
     radial-gradient(70% 60% at 100% 0%, rgba(184, 145, 79, 0.16), transparent 70%),
     var(--deep);
   color: var(--deep-text);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
 }
 .section-deep .eyebrow { color: var(--deep-gold); }
 .section-deep .eyebrow::before { background: var(--deep-gold); }
@@ -458,7 +461,7 @@ address { font-style: normal; }
 .contact-list .icon { width: 22px; height: 22px; color: var(--gold-text); margin-top: 3px; }
 .contact-list strong { display: block; font-weight: 500; margin-bottom: 2px; }
 .contact-list address, .contact-list a { color: var(--muted); }
-.contact-list a { display: inline-block; text-decoration-color: rgba(133, 97, 45, 0.45); text-underline-offset: 3px; }
+.contact-list a { display: inline-block; text-decoration-color: rgba(216, 180, 110, 0.4); text-underline-offset: 3px; }
 .contact-list address + a { margin-top: 4px; font-size: 0.92rem; }
 .contact-list a:hover { color: var(--gold-text); }
 
@@ -482,17 +485,17 @@ address { font-style: normal; }
 .field input:focus, .field select:focus, .field textarea:focus {
   outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(184, 145, 79, 0.25);
 }
-.field [aria-invalid="true"] { border-color: #b3261e; }
-.field-error { color: #b3261e; font-size: 0.85rem; }
+.field [aria-invalid="true"] { border-color: #ff8a80; }
+.field-error { color: #ff8a80; font-size: 0.85rem; }
 
 .map-wrap {
   min-height: 360px; border-radius: var(--radius); overflow: hidden;
   background: var(--surface); box-shadow: var(--shadow-sm);
 }
-.map-wrap iframe { display: block; width: 100%; height: 100%; min-height: 380px; border: 0; filter: saturate(0.7) sepia(0.12); }
+.map-wrap iframe { display: block; width: 100%; height: 100%; min-height: 380px; border: 0; filter: grayscale(0.4) invert(0.92) hue-rotate(180deg) contrast(0.9); }
 
 /* ---------- Footer ---------- */
-.site-footer { padding: 64px 0 120px; background: var(--deep); color: var(--deep-text); }
+.site-footer { padding: 64px 0 120px; background: var(--deep); color: var(--deep-text); border-top: 1px solid var(--line); }
 .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 28px; }
 .footer-id { display: flex; align-items: center; gap: 16px; }
 .footer-logo { width: 64px; height: 64px; flex: none; border-radius: 50%; box-shadow: 0 0 0 1px rgba(216, 180, 110, 0.45); }
